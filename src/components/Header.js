@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import {
@@ -44,6 +44,25 @@ const contacts = [
 ];
 
 const Header = () => {
+  const headerRef = useRef(null);
+  const prevScrollY = useRef(0);
+  const [isVisible, setIsVisible] = useState(true);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      if (prevScrollY.current < currentScrollY && isVisible) {
+        setIsVisible(false);
+      } else if (prevScrollY.current > currentScrollY || !isVisible) {
+        setIsVisible(true);
+      }
+      prevScrollY.current = currentScrollY;
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   const handleClick = (anchor) => () => {
     const id = `${anchor}-section`;
     const element = document.getElementById(id);
