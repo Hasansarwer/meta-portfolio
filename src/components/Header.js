@@ -86,7 +86,7 @@ const Header = () => {
           <nav>
             <HStack spacing={8}>
               {/* Add links to Projects and Contact me section */}
-              {contacts.map((contact,index)=> <a key={index} href={`/#${contact.anchor}-section`} onClick={handleClick(contact.anchor)}>{contact.name}</a>)}
+              {contacts.map((contact,index)=> <a key={index}  onClick={handleClick(contact.anchor)}>{contact.name}</a>)}
             </HStack>
           </nav>
         </HStack>
